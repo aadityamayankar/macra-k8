@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authn
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: authn
+  template:
+    metadata:
+      labels:
+        app: authn
+    spec:
+      containers:
+      - name: authn
+        image: mayankar/macra-authn:v5
+        ports:
+        - containerPort: 7001
+        envFrom:
+        - configMapRef:
+            name: authn-config
+        - secretRef:
+            name: authn-secret
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: authn-config

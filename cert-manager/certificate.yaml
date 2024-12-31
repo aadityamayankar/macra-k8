@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: api-macra-live-cert
+spec:
+  secretName: api-macra-live-tls
+  dnsNames:
+    - api.macra.live
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

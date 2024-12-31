@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsadmin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: opsadmin
+  template:
+    metadata:
+      labels:
+        app: opsadmin
+    spec:
+      containers:
+      - name: opsadmin
+        image: mayankar/macra-opsadmin:latest
+        ports:
+        - containerPort: 9001
+        envFrom:
+        - configMapRef:
+            name: opsadmin-config
+        - secretRef:
+            name: opsadmin-secret
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: opsadmin-config

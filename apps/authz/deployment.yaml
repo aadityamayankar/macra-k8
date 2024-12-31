@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authz
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: authz
+  template:
+    metadata:
+      labels:
+        app: authz
+    spec:
+      containers:
+      - name: authz
+        image: mayankar/macra-authz:v4
+        ports:
+        - containerPort: 6001
+        envFrom:
+        - configMapRef:
+            name: authz-config
+        - secretRef:
+            name: authz-secret
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: authz-config

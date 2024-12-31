@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventsync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventsync
+  template:
+    metadata:
+      labels:
+        app: eventsync
+    spec:
+      containers:
+      - name: eventsync
+        image: mayankar/macra-eventsync:v3
+        ports:
+        - containerPort: 10001
+        envFrom:
+        - configMapRef:
+            name: eventsync-config
+        - secretRef:
+            name: eventsync-secret
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: eventsync-config

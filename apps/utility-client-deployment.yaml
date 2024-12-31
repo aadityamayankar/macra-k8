@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: utility-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: utility-client
+  template:
+    metadata:
+      labels:
+        app: utility-client
+    spec:
+      containers:
+      - name: utility-client
+        image: alpine:3.20
+        command: ["/bin/sh", "-c", "echo 'http://dl-cdn.alpinelinux.org/alpine/v3.20/main/' > /etc/apk/repositories && echo 'http://dl-cdn.alpinelinux.org/alpine/v3.20/community/' >> /etc/apk/repositories && apk update && apk add openjdk21 maven && mkdir -p /flyway/sql && echo 'flyway.url=jdbc:postgresql://postgres:5432/postgres\nflyway.user=postgres\nflyway.password=password\nflyway.locations=filesystem:/flyway/sql\nflyway.cleanDisabled=false' > /flyway/flyway.conf && echo '<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\"><modelVersion>4.0.0</modelVersion><groupId>com.example</groupId><artifactId>flyway-example</artifactId><version>1.0-SNAPSHOT</version><dependencies><dependency><groupId>org.postgresql</groupId><artifactId>postgresql</artifactId><version>42.2.23</version></dependency></dependencies><build><plugins><plugin><groupId>org.flywaydb</groupId><artifactId>flyway-maven-plugin</artifactId><version>7.7.3</version><configuration><configFiles>flyway.conf</configFiles></configuration></plugin></plugins></build></project>' > /flyway/pom.xml && while true; do sleep 30; done;"]
+        tty: true
+        volumeMounts:
+        - name: sql-files
+          mountPath: /flyway/sql
+      volumes:
+      - name: sql-files
+        emptyDir: {}

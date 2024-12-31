@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-config
+data:
+  R2DBC_URL: r2dbc:postgresql://postgres:5432/postgres
+  DB_PASSWORD: db_password
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  RABBITMQ_HOST: rabbitmq
+  RABBITMQ_PORT: "5672"
+  LOGGING_LEVEL: INFO
+  RZP_KEY_ID: rzp_key_id
+  RZP_SECRET: rzp_secret
+  RZP_WEBHOOK_SECRET: rzp_webhook_secret
+  TICKET_PAYMENT_MAX_RETRIES: "3"
+  TICKET_PAYMENT_RETRY_INTERVAL: "5000"
+  NEXTJS_BASE_URL: https://www.macra.live

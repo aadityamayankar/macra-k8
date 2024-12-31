@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.macra.live
+    secretName: api-macra-live-tls
+  rules:
+  - http:
+      paths:
+      - path: /authn(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: authn
+            port:
+              number: 7001
+      - path: /authz(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: authz
+            port:
+              number: 6001
+      - path: /eventsync(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: eventsync
+            port:
+              number: 10001
+      - path: /opsadmin(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: opsadmin
+            port:
+              number: 9001
+      - path: /user(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: user
+            port:
+              number: 8001

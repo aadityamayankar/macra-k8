@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authn-config
+data:
+  R2DBC_URL: r2dbc:postgresql://postgres:5432/postgres
+  DB_PASSWORD: db_password
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  RABBITMQ_HOST: rabbitmq
+  RABBITMQ_PORT: "5672"
+  LOGGING_LEVEL: INFO
+  AUTHZ_BASE_URL: https://api.macra.live/authz 
+  AUTHN_BASE_URL: https://api.macra.live/authn
+  NEXTJS_BASE_URL: https://www.macra.live

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opsadmin-config
+data:
+  R2DBC_URL: r2dbc:postgresql://postgres:5432/postgres
+  DB_PASSWORD: db_password
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  RABBITMQ_HOST: rabbitmq
+  RABBITMQ_PORT: "5672"
+  LOGGING_LEVEL: INFO
