@@ -101,3 +101,7 @@ The `utility-client` service is a utility client for testing and debugging purpo
 - [ ] Helm charts for the applications and infrastructure components
 - [ ] CI/CD pipeline for automated deployment
 - [ ] Move secrets to a secret management service
+
+## License
+
+This project is licensed under the MIT License.
