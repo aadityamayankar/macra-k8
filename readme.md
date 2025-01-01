@@ -40,6 +40,31 @@ The `utility-client` service is a utility client for testing and debugging purpo
 
 - **Ingress**: NGINX Ingress controller configuration for routing traffic to services
 
+### ReplicaSets and StatefulSets
+
+#### ReplicaSets
+
+ReplicaSets ensure that we have 2 pod replicas are running at any given time. They are used for stateless applications where each instance is identical and can be replaced without any impact on the overall application state. In this project, we use ReplicaSets for the following services:
+
+- **authn**
+- **authz**
+- **eventsync**
+- **opsadmin**
+- **user**
+
+These services are stateless and can be scaled horizontally by simply adding more replicas. The ReplicaSet controller will ensures that we have two replicas are always running, and it will automatically replace any failed or terminated pods.
+
+This approach provides high availability and scalability for stateless services without the need for persistent storage or stable network identities.
+
+#### StatefulSets
+
+StatefulSets are used for stateful applications that require persistent storage and stable network identities. They provide guarantees about the ordering and uniqueness of pod instances. In this project, we use StatefulSets for the following infrastructure components:
+
+- **PostgreSQL**
+- **RabbitMQ**
+
+These components require persistent storage to maintain their state across pod restarts and rescheduling. StatefulSets ensure that each pod has a unique, stable network identity and persistent storage, which is crucial for databases and message brokers.
+
 ## Deployment
 
 ### Prerequisites
