@@ -12,7 +12,8 @@ spec:
     - api.macra.live
     secretName: api-macra-live-tls
   rules:
-  - http:
+  - host: api.macra.live
+    http:
       paths:
       - path: /authn(/|$)(.*)
         pathType: ImplementationSpecific
