@@ -1,6 +1,6 @@
 # Kubernetes Deployment for Macra
 
-This repository contains Kubernetes manifests for deploying various services and infrastructure components for the Macra application.
+This repository contains Kubernetes manifests for deploying infrastructure components and spring services for the Macra application.
 
 ## Project Structure
 
@@ -15,6 +15,16 @@ This repository contains Kubernetes manifests for deploying various services and
 - **user**: User service
 - **utility-client**: Utility client for deployment
 
+These are the containerized Spring Boot microservices. Each service has its own deployment manifest and service manifest. 
+Docker images for these services are published to Docker Hub and can be pulled from the following repositories:
+- [authn](https://hub.docker.com/r/mayankar/macra-authn)
+- [authz](https://hub.docker.com/r/mayankar/macra-authz)
+- [eventsync](https://hub.docker.com/r/mayankar/macra-eventsync)
+- [opsadmin](https://hub.docker.com/r/mayankar/macra-opsadmin)
+- [user](https://hub.docker.com/r/mayankar/macra-user)
+
+The `utility-client` service is a utility client for testing and debugging purposes. 
+
 ### Infrastructure
 
 - **PostgreSQL**: Database service
@@ -28,7 +38,7 @@ This repository contains Kubernetes manifests for deploying various services and
 
 ### Ingress
 
-- **Ingress**: NGINX Ingress configuration for routing traffic to services
+- **Ingress**: NGINX Ingress controller configuration for routing traffic to services
 
 ## Deployment
 
@@ -42,8 +52,8 @@ This repository contains Kubernetes manifests for deploying various services and
 
 1. **Clone the repository**:
     ```sh
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/aadityamayankar/macra-k8
+    cd macra-k8
     ```
 
 2. **Deploy infrastructure components**:
@@ -91,7 +101,3 @@ This repository contains Kubernetes manifests for deploying various services and
 - [ ] Helm charts for the applications and infrastructure components
 - [ ] CI/CD pipeline for automated deployment
 - [ ] Move secrets to a secret management service
-
-## License
-
-This project is licensed under the MIT License.
