@@ -2,6 +2,8 @@
 
 This repository contains Kubernetes manifests for deploying infrastructure components and spring services for the Macra application.
 
+<img src="https://github.com/user-attachments/assets/54cb41d1-e9ad-4959-88c4-bc79c143d32b" width="100%" />
+
 ## Project Structure
 
 ## Components
